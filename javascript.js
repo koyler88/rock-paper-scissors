@@ -22,6 +22,7 @@ function getComputerChoice() {
 
 // Create function named getHumanChoice
 // getHumanChoice function should return valid "rps" choice *use prompt*
+// Make humanChoice parameter case-insensitive
 
 function getHumanChoice() {
     choice = prompt("Rock, Paper, or Scissors? ")
@@ -38,31 +39,91 @@ function getHumanChoice() {
     }
     else {
         alert("Invalid Choice")
-        getHumanChoice()
+        return getHumanChoice()
     }
 }
 
 
-//Create Variables for humanScore & computerScore (initial value of 0)
-let humanScore = 0
-let computerScore = 0
+
 //Create function named playRound with parameters humanChoice & computerChoice.
 function playRound(humanChoice, computerChoice) {
-    
+    if (humanChoice === 'rock') {
+        if (computerChoice === 'rock') {
+            console.log("Tie!")
+        }
+        else if (computerChoice === 'paper') {
+            console.log("You lose! Paper beats Rock")
+            computerScore ++
+        }
+        else if (computerChoice === 'scissors') {
+            console.log("You Win! Rock beats Scissors")
+            humanScore ++
+        }
+    }
+    else if (humanChoice === 'paper') {
+        if (computerChoice === 'rock') {
+            console.log("You win! Paper beats Rock")
+            humanScore ++
+        }
+        else if (computerChoice === 'paper') {
+            console.log("Tie!")
+        }
+        else if (computerChoice === 'scissors') {
+            console.log("You Lose! Scissors beats Paper")
+            computerScore ++
+        }
+    }
+    else if (humanChoice === 'scissors') {
+        if (computerChoice === 'rock') {
+            console.log("You lose! Rock beats Scissors")
+            computerScore ++
+        }
+        else if (computerChoice === 'paper') {
+            console.log("You Win! Scissors beats Paper")
+            humanScore ++
+        }
+        else if (computerChoice === 'scissors') {
+            console.log("Tie!")
+        }
+    }
+
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
-//Make humanChoice parameter case-insensitive
+let humanScore = 0
+let computerScore = 0
+
+
 
 //compare choices to determine winner
 
 //log a statment to declare winner with reasoning (ex. "Paper beats Rock")
 
 
+// Create Function to print final game statement
+function gameRecap() {
+    if (computerScore > humanScore) {
+        console.log(`Computer wins ${computerScore} to ${humanScore}!`)
+    }
+    else if (computerScore < humanScore) {
+        console.log(`You win ${humanScore} to ${computerScore}!`)  
+    }
+    else if (computerScore === humanScore) {
+        console.log(`It's a tie! ${humanScore} to ${computerScore}`)
+    }
+}
 //Create function named playGame
 //call playRound (5x)
 //track scores
 //declare final winner
+
+function playGame() {
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    gameRecap()
+}
+
+playGame()
