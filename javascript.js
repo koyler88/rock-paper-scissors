@@ -1,6 +1,6 @@
-// Create function named getComputerChoice
-// getComputerChoice function should randomly return one of the following
-// string values: 'rock', 'paper, or 'scissors'. *math.random?*
+let playerScore = 0
+let computerScore = 0
+
 function getComputerChoice() {
     number = (Math.floor(Math.random() * 3)) + 1
     
@@ -16,114 +16,114 @@ function getComputerChoice() {
 }
 
 
-
-
-
-
-// Create function named getHumanChoice
-// getHumanChoice function should return valid "rps" choice *use prompt*
-// Make humanChoice parameter case-insensitive
-
-function getHumanChoice() {
-    choice = prompt("Rock, Paper, or Scissors? ")
-    choice = choice.toLowerCase()
-    a = 5
-    if (choice === 'rock') {
-        return choice
-    }
-    else if (choice === 'paper') {
-        return choice
-    }
-    else if (choice === 'scissors') {
-        return choice
-    }
-    else {
-        alert("Invalid Choice")
-        return getHumanChoice()
-    }
-}
-
-
-
-//Create function named playRound with parameters humanChoice & computerChoice.
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === 'rock') {
         if (computerChoice === 'rock') {
-            console.log("Tie!")
+            message.textContent = "Tie!"
         }
         else if (computerChoice === 'paper') {
-            console.log("You lose! Paper beats Rock")
+            message.textContent = "You lose! Paper beats Rock"
             computerScore ++
+            computerTally.textContent = `Computer: ${computerScore}`
         }
         else if (computerChoice === 'scissors') {
-            console.log("You Win! Rock beats Scissors")
-            humanScore ++
+            message.textContent = "You Win! Rock beats Scissors";
+            playerScore ++
+            playerTally.textContent = `Player: ${playerScore}`
+            
         }
     }
     else if (humanChoice === 'paper') {
         if (computerChoice === 'rock') {
-            console.log("You win! Paper beats Rock")
-            humanScore ++
+            message.textContent = "You win! Paper beats Rock"
+            playerScore ++
+            playerTally.textContent = `Player: ${playerScore}`
         }
         else if (computerChoice === 'paper') {
-            console.log("Tie!")
+            message.textContent = "Tie!"
         }
         else if (computerChoice === 'scissors') {
-            console.log("You Lose! Scissors beats Paper")
+            message.textContent = "You Lose! Scissors beats Paper"
             computerScore ++
+            computerTally.textContent = `Computer: ${computerScore}`
         }
     }
     else if (humanChoice === 'scissors') {
         if (computerChoice === 'rock') {
-            console.log("You lose! Rock beats Scissors")
+            message.textContent = "You lose! Rock beats Scissors"
             computerScore ++
+            computerTally.textContent = `Computer: ${computerScore}`
         }
         else if (computerChoice === 'paper') {
-            console.log("You Win! Scissors beats Paper")
-            humanScore ++
+            message.content = "You Win! Scissors beats Paper"
+            playerScore ++
+            playerTally.textContent = `Player: ${playerScore}`
         }
         else if (computerChoice === 'scissors') {
-            console.log("Tie!")
+            message.textContent = "Tie!"
         }
     }
 
 }
 
 
-let humanScore = 0
-let computerScore = 0
 
-
-
-//compare choices to determine winner
-
-//log a statment to declare winner with reasoning (ex. "Paper beats Rock")
-
-
-// Create Function to print final game statement
 function gameRecap() {
-    if (computerScore > humanScore) {
-        console.log(`Computer wins ${computerScore} to ${humanScore}!`)
+    if (computerScore > playerScore) {
+        message.textContent = `Game Over! Computer wins ${computerScore} to ${playerScore}!`
     }
-    else if (computerScore < humanScore) {
-        console.log(`You win ${humanScore} to ${computerScore}!`)  
+    else if (computerScore < playerScore) {
+        message.textContent = `Game Over! You win ${playerScore} to ${computerScore}!`
     }
-    else if (computerScore === humanScore) {
-        console.log(`It's a tie! ${humanScore} to ${computerScore}`)
-    }
-}
-//Create function named playGame
-//call playRound (5x)
-//track scores
-//declare final winner
-
-function playGame() {
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    gameRecap()
+    rockButton.remove();
+    paperButton.remove();
+    scissorsButton.remove();
 }
 
-playGame()
+
+const rockButton = document.querySelector(".rock")
+rockButton.addEventListener("click" , () => {
+    playRound('rock', getComputerChoice());
+    if (playerScore === 5 || computerScore === 5) {
+        gameRecap()
+    }
+});
+
+const paperButton = document.querySelector(".paper")
+paperButton.addEventListener("click", () => {
+    playRound('paper', getComputerChoice());
+    if (playerScore === 5 || computerScore === 5) {
+        gameRecap()
+    }
+});
+
+const scissorsButton = document.querySelector(".scissors")
+scissorsButton.addEventListener("click", () => {
+    playRound('scissors', getComputerChoice());
+    if (playerScore === 5 || computerScore === 5) {
+        gameRecap()
+    }
+});
+
+const scoreboard = document.querySelector(".scoreboard")
+scoreboard.style.textAlign = "center"
+scoreboard.style.fontSize = "32px"
+
+const buttons = document.querySelector(".buttons");
+buttons.style.display = "flex"
+buttons.style.margin = "30px 50px"
+buttons.style.justifyContent = "space-evenly"
+buttons.style.gap = "35px"
+
+const computerTally = document.querySelector(".computerTally")
+computerTally.textContent = `Computer: ${computerScore}`
+computerTally.style.fontSize = "16px"
+
+const playerTally = document.querySelector(".playerTally")
+playerTally.textContent = `Player: ${playerScore}`
+playerTally.style.fontSize = "16px"
+
+const message = document.createElement("p")
+message.textContent = "Player vs Computer! First to 5 Points Wins!"
+scoreboard.appendChild(message)
+
